@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "238012199317",
+    "project_id": "notehub-29750",
+    "storage_bucket": "notehub-29750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238012199317:android:007d98f2d111eb385c069c",
+        "android_client_info": {
+          "package_name": "com.example.notehub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238012199317-4geoftkgnvreg7civmj0uiusra2c9e1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU6xcnXQ06ly6ALVH13zlSXFaSfq9npZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238012199317-4geoftkgnvreg7civmj0uiusra2c9e1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238012199317:android:06b8d49f97b937a45c069c",
+        "android_client_info": {
+          "package_name": "com.inti.notehub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238012199317-4geoftkgnvreg7civmj0uiusra2c9e1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU6xcnXQ06ly6ALVH13zlSXFaSfq9npZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238012199317-4geoftkgnvreg7civmj0uiusra2c9e1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
