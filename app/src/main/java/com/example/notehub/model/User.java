@@ -1,13 +1,27 @@
 package com.example.notehub.model;
 
-import java.lang.reflect.Array;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class User {
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class User implements Serializable {
     private int id;
     private String username;
     private String campus;
-    private Array favouriteNotes;
-    private Array uploadedNotes;
+    private ArrayList favouriteNotes;
+    private ArrayList uploadedNotes;
+
+    public User(){}
+
+    public User(int id, String username, String campus, ArrayList favouriteNotes, ArrayList uploadedNotes){
+        this.id = id;
+        this.username = username;
+        this.campus = campus;
+        this.favouriteNotes = favouriteNotes;
+        this.uploadedNotes = uploadedNotes;
+    }
 
     public int getId() {
         return id;
@@ -33,19 +47,19 @@ public class User {
         this.campus = campus;
     }
 
-    public Array getFavouriteNotes() {
+    public ArrayList getFavouriteNotes() {
         return favouriteNotes;
     }
 
-    public void setFavouriteNotes(Array favouriteNotes) {
+    public void setFavouriteNotes(ArrayList favouriteNotes) {
         this.favouriteNotes = favouriteNotes;
     }
 
-    public Array getUploadedNotes() {
+    public ArrayList getUploadedNotes() {
         return uploadedNotes;
     }
 
-    public void setUploadedNotes(Array uploadedNotes) {
+    public void setUploadedNotes(ArrayList uploadedNotes) {
         this.uploadedNotes = uploadedNotes;
     }
 }
