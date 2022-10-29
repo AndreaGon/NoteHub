@@ -3,10 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/ANDREA/INTI/BCSUC/Sem7/AndroidDevelopment/Projects/NoteHub/app/src/main/res/drawable/home-48px.xml" value="0.2555" />
-        <entry key="..\:/ANDREA/INTI/BCSUC/Sem7/AndroidDevelopment/Projects/NoteHub/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2555" />
-        <entry key="..\:/ANDREA/INTI/BCSUC/Sem7/AndroidDevelopment/Projects/NoteHub/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/ANDREA/INTI/BCSUC/Sem7/AndroidDevelopment/Projects/NoteHub/app/src/main/res/menu/navigation.xml" value="0.25" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.246" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/explore_icon.xml" value="0.246" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/home_icon.xml" value="0.246" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.2265" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2265" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2265" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/ic_baseline_school_24.xml" value="0.2265" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/ic_launcher_background.xml" value="0.246" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/login_edittext_bg.xml" value="0.247" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/loginbutton.xml" value="0.123" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/drawable/profile_icon.xml" value="0.246" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/layout/activity_login.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/layout/login_page.xml" value="0.1" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/layout/register_page.xml" value="0.264" />
+        <entry key="..\:/Users/victo/OneDrive/Documents/GitHub/NoteHub/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.159" />
       </map>
     </option>
   </component>
