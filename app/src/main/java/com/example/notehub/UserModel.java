@@ -3,15 +3,18 @@ package com.example.notehub;
 import com.example.notehub.model.User;
 
 public class UserModel {
-    private String username,password,email;
+    private String username,password,email,campus,uniqueid;
 
     public UserModel() {
     }
 
-    public UserModel(String username, String password, String email) {
+    public UserModel(String username, String password, String email, String campus, String uniqueid) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.campus = campus;
+        this.uniqueid = uniqueid;
+
     }
 
     public String getUsername() {
@@ -36,5 +39,21 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
+    public String getUniqueid() {
+        return uniqueid;
+    }
+
+    public void setUniqueid(String uniqueid) {
+        this.uniqueid = uniqueid;
     }
 }
