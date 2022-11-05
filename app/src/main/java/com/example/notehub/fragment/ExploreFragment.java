@@ -77,11 +77,24 @@ public class ExploreFragment extends Fragment { // CONTROLLER
 
         fs_db = FirebaseFirestore.getInstance();
         mNotesArrayList = new ArrayList<Notes>();
-        mMyAdapter = new MyAdapter(getActivity(), mNotesArrayList);
+        mMyAdapter = new MyAdapter(getActivity(), mNotesArrayList, new MyAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(Notes mNotes) {
+                displayToast(mNotes.getTitle()
+                        + "\n"
+                        + mNotes.getDescription()
+                        + "\n"
+                        + mNotes.getTags());
+            }
+        });
 
         mRecyclerView.setAdapter(mMyAdapter);
 
         EventChangeListener();
+    }
+
+    private void displayToast(String text){
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
     private void EventChangeListener(){
