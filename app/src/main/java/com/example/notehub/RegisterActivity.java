@@ -73,41 +73,45 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 String username=binding.username1.getText().toString();
                 String password=binding.password1.getText().toString();
                 String email=binding.emailAddress.getText().toString();
                 String campus=binding.spinner1.getSelectedItem().toString();
-                //Integer campus=binding.;
+                if (username.isEmpty() == true || password.isEmpty() == true || email.isEmpty() == true || campus == "Select Campus") {
+                    Toast.makeText(RegisterActivity.this, "Please fill in the details completely", Toast.LENGTH_SHORT).show();
 
-                //String selectcampus= categories.get(campus).toString();
+                }
+               else {
+
+                    progressDialog.show();
+                    firebaseAuth.createUserWithEmailAndPassword(email,password)
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                    progressDialog.cancel();
+                                    String uniqueid = firebaseFirestore.collection("User").document().getId();
 
 
-                progressDialog.show();
-                firebaseAuth.createUserWithEmailAndPassword(email,password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                                progressDialog.cancel();
-                                String uniqueid = firebaseFirestore.collection("User").document().getId();
+                                    firebaseFirestore.collection("User")
+                                            .document(uniqueid)
+                                            .set(new UserModel(username, password, email, campus, uniqueid));
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    progressDialog.cancel();
+                                }
+                            });
+               }
 
-
-                                firebaseFirestore.collection("User")
-                                        .document(uniqueid)
-                                        .set(new UserModel(username, password, email, campus, uniqueid));
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                progressDialog.cancel();
-                            }
-                        });
             }
 
-
         });
+
 
 
         spinner = findViewById(R.id.spinner1);
@@ -118,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
         //Dropdown layout style
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        //attach data adapter to spiner
+        //attach data adapter to spinner
         spinner.setAdapter(dataAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

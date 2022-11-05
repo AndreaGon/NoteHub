@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,29 +36,39 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
 
+
         binding.login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 String email=binding.emailAddress.getText().toString().trim();
                 String password=binding.password2.getText().toString().trim();
-                progressDialog.show();
-                firebaseAuth.signInWithEmailAndPassword(email,password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                startActivity (new Intent(LoginActivity.this,HomeActivity.class));
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+
+                if (email.isEmpty() == true || password.isEmpty() == true ) {
+                    Toast.makeText(LoginActivity.this, "Please enter your credentials completely", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+
+                    progressDialog.show();
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    LoginActivity.this.finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
 
@@ -94,6 +106,9 @@ public class LoginActivity extends AppCompatActivity {
                 //resultLauncher.launch(i1);
 
             }
+
         });
+
+
     }
 }
