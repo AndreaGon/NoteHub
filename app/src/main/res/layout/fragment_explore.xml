@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#B7FCA311"
+    tools:context=".fragment.ExploreFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarWrapper2">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/dark_blue"
+            android:minHeight="?attr/actionBarSize">
+
+
+            <TextView
+                android:id="@+id/exploreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exploreText"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <EditText
+        android:id="@+id/exploreView1"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/toolbarWrapper2"
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/search_icon_1"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="20dp"
+        android:drawableTint="@android:color/black"
+        android:background="@drawable/search_background"
+        android:hint="Search for Notes, Books or Exam Papers"
+        android:paddingStart="10dp"
+        android:singleLine="true"
+        android:textColorHint="@android:color/black"
+        android:imeOptions="actionSearch"/>
+
+    <Button
+        android:id="@+id/exploreBtn1"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/exploreView1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/exploreBtnText1"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:backgroundTint="#D9D9D9"/>
+
+    <Button
+        android:id="@+id/exploreBtnText1"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/exploreBtn1"
+        android:text="@string/exploreText2"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3A6EA5"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:enabled="false"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exploreBtnText1"
+        android:layout_marginTop="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

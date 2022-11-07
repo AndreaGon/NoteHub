@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+public class User implements Serializable { // MODEL
     private int id;
     private String username;
     private String campus;
