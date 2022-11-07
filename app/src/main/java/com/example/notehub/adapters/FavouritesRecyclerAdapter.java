@@ -31,7 +31,7 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
     public FavouritesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.home_page_card, parent, false);
-        Log.d("Information: ", "Called");
+
         return new FavouritesHolder(view);
     }
 

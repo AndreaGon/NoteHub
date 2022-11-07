@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.notehub.HomeActivity;
 import com.example.notehub.MyAdapter;
 import com.example.notehub.databinding.FragmentExploreBinding;
 import com.example.notehub.model.Notes;
