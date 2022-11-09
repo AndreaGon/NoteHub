@@ -61,7 +61,7 @@ public class HomeController{
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot doc = task.getResult();
-                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(doc.getDocuments());
+                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter((ArrayList) doc.getDocuments());
 
                             mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
                             mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);

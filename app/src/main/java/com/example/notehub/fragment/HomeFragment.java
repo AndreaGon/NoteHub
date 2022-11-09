@@ -7,21 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.example.notehub.MyAdapter;
-import com.example.notehub.R;
 import com.example.notehub.abstracts.HomeAbstracts;
 import com.example.notehub.controllers.HomeController;
 import com.example.notehub.databinding.FragmentHomeBinding;
-import com.example.notehub.model.Notes;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Map;

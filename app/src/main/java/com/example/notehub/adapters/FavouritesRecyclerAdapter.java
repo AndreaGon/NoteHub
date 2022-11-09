@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRecyclerAdapter.FavouritesHolder> {
-    private List<QueryDocumentSnapshot> mNotesList;
+    private ArrayList<QueryDocumentSnapshot> mNotesList;
 
-    public FavouritesRecyclerAdapter(List notesList) {
+    public FavouritesRecyclerAdapter(ArrayList notesList) {
         this.mNotesList = notesList;
     }
 
@@ -38,9 +38,10 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
 
     @Override
     public void onBindViewHolder(FavouritesHolder holder, int position) {
-        Log.d("Result: ", String.valueOf(mNotesList.get(position).getData().get("title")));
-        holder.mFileTitle.setText(String.valueOf(mNotesList.get(position).getData().get("title")));
-        holder.mFileDescription.setText(String.valueOf(mNotesList.get(position).getData().get("description")));
+        Notes notes = mNotesList.get(position).toObject(Notes.class);
+
+        holder.mFileTitle.setText(notes.getTitle());
+        holder.mFileDescription.setText(notes.getDescription());
     }
 
     @Override

@@ -9,32 +9,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.notehub.MyAdapter;
+import com.example.notehub.abstracts.ExploreAbstracts;
+import com.example.notehub.adapters.ExploreRecyclerAdapter;
+import com.example.notehub.controllers.ExploreController;
 import com.example.notehub.databinding.FragmentExploreBinding;
 import com.example.notehub.model.Notes;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment { // CONTROLLER
 
     private FragmentExploreBinding explore_fragment_binding;
+    private ExploreController mExploreController;
+    private LinearLayoutManager mLinearLayoutManager;
 
     RecyclerView mRecyclerView;
     ArrayList<Notes> mNotesArrayList;
-    MyAdapter mMyAdapter;
+    ExploreRecyclerAdapter mExploreRecyclerAdapter;
     FirebaseFirestore fs_db;
-    ProgressDialog progressDialog;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,10 +55,10 @@ public class ExploreFragment extends Fragment { // CONTROLLER
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Data...");
-        progressDialog.show();
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Fetching Data...");
+        mProgressDialog.show();
 
         //VIEW AVAILABLE CATEGORIES BUTTON START
         explore_fragment_binding.exploreBtn1.setOnClickListener(new View.OnClickListener() {
@@ -70,68 +70,27 @@ public class ExploreFragment extends Fragment { // CONTROLLER
         });
         //VIEW AVAILABLE CATEGORIES BUTTON END
 
-        mRecyclerView = explore_fragment_binding.recyclerView1;
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mExploreController = new ExploreController(explore_fragment_binding);
 
-        fs_db = FirebaseFirestore.getInstance();
-        mNotesArrayList = new ArrayList<Notes>();
-        mMyAdapter = new MyAdapter(getActivity(), mNotesArrayList, new MyAdapter.ItemClickListener() {
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+
+        mExploreController.getNotesList(new ExploreAbstracts() {
             @Override
-            public void onItemClick(Notes mNotes) {
-                displayToast(mNotes.getTitle()
-                        + "\n"
-                        + mNotes.getDescription()
-                        + "\n"
-                        + mNotes.getTags());
+            public void notesLoad(boolean isLoaded){
+                if (isLoaded && mProgressDialog.isShowing()){
+                    mProgressDialog.dismiss();
+                }
             }
-        });
+        }, mLinearLayoutManager);
 
-        mRecyclerView.setAdapter(mMyAdapter);
+        
 
-        EventChangeListener();
+
     }
 
     private void displayToast(String text){
         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
-    private void EventChangeListener(){
-
-        fs_db.collection("notes")
-                .orderBy("year", Query.Direction.DESCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                        if (e != null){
-
-                            if (progressDialog.isShowing()){
-                                progressDialog.dismiss();
-                            }
-
-                            Toast.makeText(getActivity(), "Firestore Error = " + e, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()){
-
-                            if (dc.getType() == DocumentChange.Type.ADDED){
-
-                                mNotesArrayList.add(dc.getDocument().toObject(Notes.class));
-
-                            }
-
-                            mMyAdapter.notifyDataSetChanged();
-                            if (progressDialog.isShowing()){
-                                progressDialog.dismiss();
-                            }
-
-                        }
-
-                    }
-                });
-
-    }
 
 }
