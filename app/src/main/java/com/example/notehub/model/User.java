@@ -5,30 +5,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable { // MODEL
-    private int id;
+    private String uniqueid;
     private String username;
     private String campus;
-    private ArrayList favouriteNotes;
-    private ArrayList uploadedNotes;
+    private String email;
+    private ArrayList<String> favouriteNotes;
+    private ArrayList<String> uploadedNotes;
 
-    public User(){}
-
-    public User(int id, String username, String campus, ArrayList favouriteNotes, ArrayList uploadedNotes){
-        this.id = id;
+    public User(String uniqueid, String username, String campus, String email, ArrayList favouriteNotes, ArrayList uploadedNotes){
+        this.uniqueid = uniqueid;
         this.username = username;
         this.campus = campus;
+        this.email = email;
         this.favouriteNotes = favouriteNotes;
         this.uploadedNotes = uploadedNotes;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -49,6 +42,22 @@ public class User implements Serializable { // MODEL
 
     public ArrayList getFavouriteNotes() {
         return favouriteNotes;
+    }
+
+    public String getUniqueid() {
+        return uniqueid;
+    }
+
+    public void setUniqueid(String uniqueid) {
+        this.uniqueid = uniqueid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setFavouriteNotes(ArrayList favouriteNotes) {
