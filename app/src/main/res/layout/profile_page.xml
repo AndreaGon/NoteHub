@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        app:srcCompat="@drawable/shrek"
+         />
+
+    <TextView
+        android:id="@+id/ProfName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Victor Chieng Zee Xuan"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/ProfComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ProfName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="A student at INTI Campus"
+        android:textSize="15sp"
+         />
+
+
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/ProfName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/green"
+        android:gravity="center"
+        android:text="Upload"
+        android:drawableLeft="@drawable/uploadicon"
+        android:textSize="25sp" />
+
+
+    <Button
+        android:id="@+id/btnLogOff"
+        android:layout_below="@id/btnUpload"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/logout_red"
+        android:text="Log Out"
+        android:drawableLeft="@drawable/logout"
+        android:textSize="25sp"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottonnav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        app:menu="@menu/navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>

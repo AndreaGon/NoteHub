@@ -19,6 +19,7 @@ import com.example.notehub.databinding.ActivityHomeBinding;
 import java.sql.Array;
 import java.util.ArrayList;
 
+/*
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
@@ -66,7 +67,4 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
-
-
-
-}
+}*/
