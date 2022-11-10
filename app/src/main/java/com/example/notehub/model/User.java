@@ -1,20 +1,27 @@
 package com.example.notehub.model;
 
-import java.lang.reflect.Array;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class User {
-    private int id;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+public class User implements Serializable { // MODEL
+    private String uniqueid;
     private String username;
     private String campus;
-    private Array favouriteNotes;
-    private Array uploadedNotes;
+    private String email;
+    private ArrayList<String> favouriteNotes;
+    private ArrayList<String> uploadedNotes;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public User(String uniqueid, String username, String campus, String email, ArrayList favouriteNotes, ArrayList uploadedNotes){
+        this.uniqueid = uniqueid;
+        this.username = username;
+        this.campus = campus;
+        this.email = email;
+        this.favouriteNotes = favouriteNotes;
+        this.uploadedNotes = uploadedNotes;
     }
 
     public String getUsername() {
@@ -33,19 +40,35 @@ public class User {
         this.campus = campus;
     }
 
-    public Array getFavouriteNotes() {
+    public ArrayList getFavouriteNotes() {
         return favouriteNotes;
     }
 
-    public void setFavouriteNotes(Array favouriteNotes) {
+    public String getUniqueid() {
+        return uniqueid;
+    }
+
+    public void setUniqueid(String uniqueid) {
+        this.uniqueid = uniqueid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFavouriteNotes(ArrayList favouriteNotes) {
         this.favouriteNotes = favouriteNotes;
     }
 
-    public Array getUploadedNotes() {
+    public ArrayList getUploadedNotes() {
         return uploadedNotes;
     }
 
-    public void setUploadedNotes(Array uploadedNotes) {
+    public void setUploadedNotes(ArrayList uploadedNotes) {
         this.uploadedNotes = uploadedNotes;
     }
 }

@@ -15,16 +15,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.notehub.controllers.RegisterController;
 import com.example.notehub.databinding.ActivityLoginBinding;
 import com.example.notehub.databinding.ActivityMainBinding;
 import com.example.notehub.databinding.RegisterPageBinding;
+import com.example.notehub.model.Notes;
+import com.example.notehub.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -42,10 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     List<String> categories = new ArrayList<>();
     String text;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                else {
 
+                    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     progressDialog.show();
                     firebaseAuth.createUserWithEmailAndPassword(email,password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -91,12 +93,12 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onSuccess(AuthResult authResult) {
                                     startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                                     progressDialog.cancel();
-                                    String uniqueid = firebaseFirestore.collection("User").document().getId();
+                                    String uniqueid = currentFirebaseUser.getUid();
 
 
-                                    firebaseFirestore.collection("User")
+                                    firebaseFirestore.collection("user")
                                             .document(uniqueid)
-                                            .set(new UserModel(username, password, email, campus, uniqueid));
+                                            .set(new User(uniqueid, username, campus, email, new ArrayList(), new ArrayList()));
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

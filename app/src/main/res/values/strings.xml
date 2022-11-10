@@ -2,4 +2,14 @@
     <string name="app_name">NoteHub</string>
     <string name="home_favourites">My Favourites</string>
     <string name="welcome_text">Welcome to NoteHub!</string>
+
+    <string name="homeText1">HOME FRAGMENT</string>
+    <string name="exploreText1">EXPLORE FRAGMENT</string>
+    <string name="profileText1">PROFILE FRAGMENT</string>
+    <string name="exploreText">Explore</string>
+    <string name="exploreBtnText1">View Available Categories</string>
+    <string name="exploreText2">Recently Uploaded</string>
+    <string name="Title">Title:&#160;</string>
+    <string name="Description">Description:&#160;</string>
+    <string name="Tags">Tags:&#160;</string>
 </resources>

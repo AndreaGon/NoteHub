@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
                 else {
-
+                    progressDialog.setCancelable(false);
                     progressDialog.show();
                     firebaseAuth.signInWithEmailAndPassword(email, password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onSuccess(AuthResult authResult) {
                                     progressDialog.cancel();
                                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     LoginActivity.this.finish();
                                 }
                             })
