@@ -1,18 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!-- VIEW -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeActivity" >
-
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         app:layout_constraintStart_toStartOf="parent"
@@ -47,28 +38,20 @@
         android:id="@+id/myFavouritesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbarWrapper"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
         android:text="@string/home_favourites"
+        android:layout_below="@id/toolbarWrapper"
         android:textColor="@color/black"
+        android:textSize="20dp"
         android:textFontWeight="800"
-        android:textSize="20dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favouritesList"
+        android:id="@+id/mFavouritesList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/myFavouritesTitle"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/myFavouritesTitle">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottonnav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-
-        app:menu="@menu/navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
-
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

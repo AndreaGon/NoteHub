@@ -1,12 +1,17 @@
 package com.example.notehub.model;
 
-public class Notes {
+public class Notes { // MODEL
     private int fileId;
     private String description;
     private String tags;
     private String title;
     private String uploadedBy;
     private String userName;
+    //====================================================
+    private int file_id; //the name same as in Firestore
+    //====================================================
+
+    public Notes(){} //DEFAULT CONSTRUCTOR
 
     public int getFileId() {
         return fileId;
@@ -55,4 +60,10 @@ public class Notes {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    //=======================================================================================
+    public int getFile_id() { return file_id; }
+
+    public void setFile_id(int file_id) { this.file_id = file_id; }
+    //=======================================================================================
 }
