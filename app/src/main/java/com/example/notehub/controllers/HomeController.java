@@ -45,7 +45,7 @@ public class HomeController{
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                         if (task.isSuccessful()) {
-                            Log.d("ITEMS: ", String.valueOf(task.getResult()));
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 homeAbstracts.userData(document.getData());
 

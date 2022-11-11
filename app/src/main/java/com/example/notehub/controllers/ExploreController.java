@@ -1,10 +1,15 @@
 package com.example.notehub.controllers;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.notehub.R;
 import com.example.notehub.abstracts.ExploreAbstracts;
 import com.example.notehub.adapters.ExploreRecyclerAdapter;
 import com.example.notehub.databinding.FragmentExploreBinding;
@@ -27,7 +32,7 @@ public class ExploreController {
         this.mFragmentExploreBinding = fragmentExploreBinding;
     }
 
-    public void getNotesList(ExploreAbstracts exploreAbstracts, LinearLayoutManager layoutManager){
+    public void getNotesList(Context context, ExploreAbstracts exploreAbstracts, LinearLayoutManager layoutManager){
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
 
         dataBase.collection("notes")
@@ -38,7 +43,7 @@ public class ExploreController {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot doc = task.getResult();
-                            mExploreRecyclerAdapter = new ExploreRecyclerAdapter((ArrayList) doc.getDocuments());
+                            mExploreRecyclerAdapter = new ExploreRecyclerAdapter(context, (ArrayList) doc.getDocuments());
 
                             mFragmentExploreBinding.recyclerView1.setHasFixedSize(true);
                             mFragmentExploreBinding.recyclerView1.setLayoutManager(layoutManager);
@@ -53,4 +58,6 @@ public class ExploreController {
                 });
 
     }
+
+
 }
