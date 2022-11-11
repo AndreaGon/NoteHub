@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_grey">
+
+    <Button
+        android:id="@+id/UploadFile"
+        android:layout_width="300dp"
+        android:layout_height="225dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/grey"
+        android:drawableTop="@drawable/file_upload"
+        android:text="Click to Upload FIle"
+        android:gravity="center"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/uploadFileID"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/UploadFile"
+        android:background="@color/white"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:hint="File Name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="5dip" />
+
+    <EditText
+        android:id="@+id/uploadTitle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/uploadFileID"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:hint="Title"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="5dip" />
+
+    <Spinner
+        android:id="@+id/spinner_types"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/uploadTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:hint="Types"
+        android:background="@color/white"
+        android:popupBackground="@color/white"
+        android:spinnerMode="dropdown"
+        android:elevation="@dimen/cardview_default_elevation"/>
+
+    <EditText
+        android:id="@+id/uploadDesc"
+        android:layout_width="300dp"
+        android:layout_height="125dp"
+        android:layout_below="@id/spinner_types"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        android:padding="5dip"
+        android:inputType= "textMultiLine"
+        android:hint="Description"
+        android:maxLines="5"
+        android:elevation="@dimen/cardview_default_elevation" />
+
+    <Button
+        android:id="@+id/btnPublish"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/uploadDesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/orange"
+        android:text="Publish"
+        android:drawableLeft="@drawable/uploadicon"
+        android:textSize="25sp" />
+
+</RelativeLayout>

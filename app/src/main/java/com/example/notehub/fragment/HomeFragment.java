@@ -1,6 +1,7 @@
 package com.example.notehub.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.notehub.FileViewerActivity;
 import com.example.notehub.RegisterActivity;
+import com.example.notehub.UploadActivity;
 import com.example.notehub.abstracts.HomeAbstracts;
 import com.example.notehub.controllers.HomeController;
 import com.example.notehub.databinding.FragmentHomeBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -46,6 +51,15 @@ public class HomeFragment extends Fragment { // CONTROLLER
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        FloatingActionButton fab = home_fragment_binding.uploadFile;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), UploadActivity.class);
+                startActivity(i);
+            }
+        });
 
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setCancelable(false);
