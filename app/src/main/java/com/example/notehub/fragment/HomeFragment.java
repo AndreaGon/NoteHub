@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.notehub.R;
 import com.example.notehub.abstracts.HomeAbstracts;
 import com.example.notehub.controllers.HomeController;
 import com.example.notehub.databinding.FragmentHomeBinding;
@@ -47,7 +48,7 @@ public class HomeFragment extends Fragment { // CONTROLLER
 
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Fetching Data...");
+        mProgressDialog.setMessage(getString(R.string.FetchingData));
         mProgressDialog.show();
 
         mHomeController = new HomeController(home_fragment_binding);

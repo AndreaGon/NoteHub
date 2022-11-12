@@ -63,12 +63,12 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
 
         List<String> categories = new ArrayList<>();
-        categories.add(0, "Select Campus");
-        categories.add("INTI International College Penang");
-        categories.add("Coventry University");
-        categories.add("Sunway University");
-        categories.add("UOW Malaysia KDU Penang University College");
-        categories.add("Monash University Malaysia");
+        categories.add(0, getString(R.string.Spinner_SelectCampus));
+        categories.add(getString(R.string.Spinner_CampusInti));
+        categories.add(getString(R.string.Spinner_CampusConventry));
+        categories.add(getString(R.string.Spinner_CampusSunway));
+        categories.add(getString(R.string.Spinner_CampusUow));
+        categories.add(getString(R.string.Spinner_CampusMonash));
 
         binding.signup.setOnClickListener(new View.OnClickListener() {
 
@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String email=binding.emailAddress.getText().toString();
                 String campus=binding.spinner1.getSelectedItem().toString();
                 if (username.isEmpty() == true || password.isEmpty() == true || email.isEmpty() == true || campus == "Select Campus") {
-                    Toast.makeText(RegisterActivity.this, "Please fill in the details completely", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.SignIn_FailureMsg, Toast.LENGTH_SHORT).show();
 
                 }
                else {
@@ -131,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (parent.getItemAtPosition(position).equals("Select Campus"))
+                if (parent.getItemAtPosition(position).equals(R.string.Spinner_SelectCampus))
                 {
                     //do nothing
                 }
@@ -142,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String item = parent.getItemAtPosition(position).toString();
                     //show selected Spinner item
                     text = spinner.getSelectedItem().toString();
-                    Toast.makeText(parent.getContext(),"Selected: "+item, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(parent.getContext(),getString(R.string.spinner_OnSelected)+item, Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -12,4 +12,23 @@
     <string name="Title">Title:&#160;</string>
     <string name="Description">Description:&#160;</string>
     <string name="Tags">Tags:&#160;</string>
+<!--===================================================================================================-->
+    <string name="Spinner_SelectCampus">Select Campus</string>
+    <string name="Spinner_CampusInti">INTI International College Penang</string>
+    <string name="Spinner_CampusConventry">Coventry University</string>
+    <string name="Spinner_CampusSunway">Sunway University</string>
+    <string name="Spinner_CampusUow">UOW Malaysia KDU Penang University College</string>
+    <string name="Spinner_CampusMonash">Monash University Malaysia</string>
+    <string name="SignIn_FailureMsg">Please fill in the details completely</string>
+    <string name="spinner_OnSelected">\"Selected: \"</string>
+    <string name="login_EmptyCredentials">Please enter your credentials completely</string>
+    <string name="login_Successful">Login Successful</string>
+    <string name="resetPassword_OnClick">Sending Mail</string>
+    <string name="resetPassword_Successful">Email Sent</string>
+    <!--===================================================================================================-->
+    <string name="FetchingData">Fetching Data...</string>
+    <string name="Indevelopment">CATEGORIES PAGE IN DEVELOPMENT</string>
+    <string name="InDevelopment2">IN DEVELOPMENT</string>
+
+
 </resources>

@@ -1,5 +1,7 @@
 package com.example.notehub.fragment;
 
+import static com.example.notehub.R.string.Indevelopment;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.notehub.R;
 import com.example.notehub.abstracts.ExploreAbstracts;
 import com.example.notehub.adapters.ExploreRecyclerAdapter;
 import com.example.notehub.controllers.ExploreController;
@@ -57,14 +60,14 @@ public class ExploreFragment extends Fragment { // CONTROLLER
 
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Fetching Data...");
+        mProgressDialog.setMessage(getString(R.string.FetchingData));
         mProgressDialog.show();
 
         //VIEW AVAILABLE CATEGORIES BUTTON START
         explore_fragment_binding.exploreBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "CATEGORIES PAGE IN DEVELOPMENT", Toast.LENGTH_SHORT)
+                Toast.makeText(getActivity(), Indevelopment, Toast.LENGTH_SHORT)
                         .show();
             }
         });
