@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.notehub.R;
+import com.example.notehub.RegisterActivity;
 import com.example.notehub.abstracts.HomeAbstracts;
 import com.example.notehub.controllers.HomeController;
 import com.example.notehub.databinding.FragmentHomeBinding;
@@ -48,7 +49,7 @@ public class HomeFragment extends Fragment { // CONTROLLER
 
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage(getString(R.string.FetchingData));
+        mProgressDialog.setMessage("Fetching Data...");
         mProgressDialog.show();
 
         mHomeController = new HomeController(home_fragment_binding);
@@ -58,7 +59,14 @@ public class HomeFragment extends Fragment { // CONTROLLER
         mHomeController.getCurrentUser(new HomeAbstracts(){
             @Override
             public void userData(Map user){
-                mHomeController.getFavouriteNotes((ArrayList) user.get("favouriteNotes"), layoutManager);
+                ArrayList listOfNotes = (ArrayList) user.get("favouriteNotes");
+                if(listOfNotes.isEmpty()){
+                    Toast.makeText(getActivity(), "No Favourite Notes!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    mHomeController.getFavouriteNotes((ArrayList) user.get("favouriteNotes"), layoutManager);
+                }
+
                 if (mProgressDialog.isShowing()){
                     mProgressDialog.dismiss();
                 }

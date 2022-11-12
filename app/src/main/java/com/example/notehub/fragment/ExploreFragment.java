@@ -77,7 +77,7 @@ public class ExploreFragment extends Fragment { // CONTROLLER
 
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
 
-        mExploreController.getNotesList(new ExploreAbstracts() {
+        mExploreController.getNotesList(getActivity(), new ExploreAbstracts() {
             @Override
             public void notesLoad(boolean isLoaded){
                 if (isLoaded && mProgressDialog.isShowing()){
