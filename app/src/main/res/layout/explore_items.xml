@@ -105,6 +105,11 @@
                 android:textSize="22dp"
                 android:textColor="@color/black"/>
 
+            <TextView
+                android:id="@+id/url_id"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+
         </LinearLayout>
 
     </LinearLayout>

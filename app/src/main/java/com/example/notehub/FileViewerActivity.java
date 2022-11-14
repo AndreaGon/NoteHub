@@ -40,7 +40,8 @@ public class FileViewerActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    InputStream input = new URL("https://firebasestorage.googleapis.com/v0/b/notehub-29750.appspot.com/o/rl-notes.pdf?alt=media&token=575a9189-1a13-4ace-b269-f5dd9b273764").openStream();
+                    String url_ref = getIntent().getStringExtra("url_key");
+                    InputStream input = new URL(url_ref).openStream();
                     pdfView.fromStream(input).load();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -50,8 +51,7 @@ public class FileViewerActivity extends AppCompatActivity {
         }.execute();
 
 
-        Toast.makeText(this, getIntent().getStringExtra("key"), Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(this, getIntent().getStringExtra("title_key"), Toast.LENGTH_SHORT).show();
     }
 
 

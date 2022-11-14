@@ -44,12 +44,16 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         holder.title.setText(notes.getTitle());
         holder.description.setText(notes.getDescription());
         holder.tags.setText(notes.getTags());
+        holder.url.setText(notes.getUrl());
 
+        //WHEN CLICKED RECYCLERVIEW
         holder.itemView.setOnClickListener(view -> {
             Intent i = new Intent(mContext, FileViewerActivity.class);
-            i.putExtra("key",notes.getTitle());
+            i.putExtra("url_key",notes.getUrl());
+            i.putExtra("title_key",notes.getTitle());
             mContext.startActivity(i);
         });
+        //WHEN CLICKED RECYCLERVIEW
     }
 
     @Override
@@ -60,13 +64,14 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
     public static class ExploreHolder extends RecyclerView.ViewHolder{
 
-        TextView title, description, tags;
+        TextView title, description, tags, url;
 
         public ExploreHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textViewTitle);
             description = itemView.findViewById(R.id.textViewDesc);
             tags = itemView.findViewById(R.id.textViewTag);
+            url = itemView.findViewById(R.id.url_id);
         }
 
     }

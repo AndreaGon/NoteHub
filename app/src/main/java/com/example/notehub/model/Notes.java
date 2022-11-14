@@ -9,6 +9,7 @@ public class Notes { // MODEL
     private String userName;
     //====================================================
     private int file_id; //the name same as in Firestore
+    private String url;
     //====================================================
 
     public Notes(){} //DEFAULT CONSTRUCTOR
@@ -65,5 +66,9 @@ public class Notes { // MODEL
     public int getFile_id() { return file_id; }
 
     public void setFile_id(int file_id) { this.file_id = file_id; }
+
+    public String getUrl() { return url; }
+
+    public void setUrl(String url) { this.url = url; }
     //=======================================================================================
 }
