@@ -1,7 +1,6 @@
 package com.example.notehub.model;
 
 public class Notes { // MODEL
-    private int fileId;
     private String description;
     private String tags;
     private String title;
@@ -13,14 +12,6 @@ public class Notes { // MODEL
     //====================================================
 
     public Notes(){} //DEFAULT CONSTRUCTOR
-
-    public int getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(int fileId) {
-        this.fileId = fileId;
-    }
 
     public String getDescription() {
         return description;

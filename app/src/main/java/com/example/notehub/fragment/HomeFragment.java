@@ -3,11 +3,13 @@ package com.example.notehub.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,11 +62,12 @@ public class HomeFragment extends Fragment { // CONTROLLER
             @Override
             public void userData(Map user){
                 ArrayList listOfNotes = (ArrayList) user.get("favouriteNotes");
+                Log.d("FAVNOTES", String.valueOf(listOfNotes));
                 if(listOfNotes.isEmpty()){
                     Toast.makeText(getActivity(), "No Favourite Notes!", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    mHomeController.getFavouriteNotes((ArrayList) user.get("favouriteNotes"), layoutManager);
+                    mHomeController.getFavouriteNotes(getActivity(), (ArrayList) user.get("favouriteNotes"), layoutManager);
                 }
 
                 if (mProgressDialog.isShowing()){

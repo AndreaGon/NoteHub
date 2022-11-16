@@ -46,11 +46,14 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         holder.tags.setText(notes.getTags());
         holder.url.setText(notes.getUrl());
 
+
         //WHEN CLICKED RECYCLERVIEW
         holder.itemView.setOnClickListener(view -> {
             Intent i = new Intent(mContext, FileViewerActivity.class);
             i.putExtra("url_key",notes.getUrl());
             i.putExtra("title_key",notes.getTitle());
+            i.putExtra("file_id", notes.getFile_id());
+            i.putExtra("is_fav", false);
             mContext.startActivity(i);
         });
         //WHEN CLICKED RECYCLERVIEW

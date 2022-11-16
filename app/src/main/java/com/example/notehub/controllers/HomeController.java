@@ -1,5 +1,6 @@
 package com.example.notehub.controllers;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -58,7 +59,7 @@ public class HomeController{
 
     }
 
-    public void getFavouriteNotes(List file, GridLayoutManager layoutManager){
+    public void getFavouriteNotes(Context context, List file, GridLayoutManager layoutManager){
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
         Log.d("IS COMPLETE", "IS COMPLETE");
         dataBase.collection("notes")
@@ -70,7 +71,7 @@ public class HomeController{
 
                         if (task.isSuccessful()) {
                             QuerySnapshot doc = task.getResult();
-                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter((ArrayList) doc.getDocuments());
+                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(context, (ArrayList) doc.getDocuments());
 
                             mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
                             mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
