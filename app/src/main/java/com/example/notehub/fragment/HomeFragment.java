@@ -49,8 +49,14 @@ public class HomeFragment extends Fragment { // CONTROLLER
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCancelable(true);
         mProgressDialog.setMessage("Fetching Data...");
         mProgressDialog.show();
 
@@ -62,9 +68,9 @@ public class HomeFragment extends Fragment { // CONTROLLER
             @Override
             public void userData(Map user){
                 ArrayList listOfNotes = (ArrayList) user.get("favouriteNotes");
-                Log.d("FAVNOTES", String.valueOf(listOfNotes));
                 if(listOfNotes.isEmpty()){
                     Toast.makeText(getActivity(), "No Favourite Notes!", Toast.LENGTH_SHORT).show();
+                    mHomeController.refreshOnDataChange(getActivity(), layoutManager);
                 }
                 else{
                     mHomeController.getFavouriteNotes(getActivity(), (ArrayList) user.get("favouriteNotes"), layoutManager);

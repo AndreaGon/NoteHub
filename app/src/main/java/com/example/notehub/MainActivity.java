@@ -49,21 +49,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-
-        /* COMMENT FOR NOW BECAUSE sample VARIABLE GOT ERROR
-        binding.sample.setOnClickListener(new View.OnClickListener() {
-        ProgressBar progressBar = binding.progressBar;
-
-        layoutManager=new GridLayoutManager(this,1);
-
-        getCurrentUser(new HomeAbstracts(){
-            @Override
-            public void userData(Map user){
-                getFavouriteNotes((ArrayList) user.get("favouriteNotes"));
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-        COMMENT FOR NOW BECAUSE sample VARIABLE GOT ERROR */
     }
 
     private void replaceFragment(Fragment fragment){

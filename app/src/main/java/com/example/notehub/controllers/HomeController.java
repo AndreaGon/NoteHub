@@ -61,7 +61,6 @@ public class HomeController{
 
     public void getFavouriteNotes(Context context, List file, GridLayoutManager layoutManager){
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
-        Log.d("IS COMPLETE", "IS COMPLETE");
         dataBase.collection("notes")
                 .whereIn("file_id", file)
                 .get()
@@ -75,6 +74,7 @@ public class HomeController{
 
                             mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
                             mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
+                            mFavouritesRecyclerAdapter.notifyDataSetChanged();
 
                         } else {
                             Log.d("Error: ", String.valueOf(task.getException()));
@@ -83,4 +83,13 @@ public class HomeController{
                 });
 
     }
+
+    public void refreshOnDataChange(Context context, GridLayoutManager layoutManager){
+        mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(context, new ArrayList());
+
+        mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
+        mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
+        mFavouritesRecyclerAdapter.notifyDataSetChanged();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.notehub;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -43,6 +44,15 @@ public class FileViewerActivity extends AppCompatActivity {
 
         pdfView = findViewById(R.id.pdfView);
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowTitleEnabled(false);
+        toolBar.setNavigationOnClickListener(view -> onBackPressed());
+
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -78,6 +88,7 @@ public class FileViewerActivity extends AppCompatActivity {
                 return true;
             case R.id.removeFromFav:
                 mFileViewerController.removeFromFavourites(currentFileId);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -25,7 +25,7 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
     private ArrayList<QueryDocumentSnapshot> mNotesList;
     private Context mContext;
 
-    public FavouritesRecyclerAdapter(Context context,ArrayList notesList) {
+    public FavouritesRecyclerAdapter(Context context, ArrayList notesList) {
         mContext = context;
         this.mNotesList = notesList;
     }

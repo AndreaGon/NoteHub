@@ -12,7 +12,7 @@
     <string name="Title">Title:&#160;</string>
     <string name="Description">Description:&#160;</string>
     <string name="Tags">Tags:&#160;</string>
-<!--===================================================================================================-->
+    <!--===================================================================================================-->
     <string name="Spinner_SelectCampus">Select Campus</string>
     <string name="Spinner_CampusInti">INTI International College Penang</string>
     <string name="Spinner_CampusConventry">Coventry University</string>
@@ -29,6 +29,8 @@
     <string name="FetchingData">Fetching Data...</string>
     <string name="Indevelopment">CATEGORIES PAGE IN DEVELOPMENT</string>
     <string name="InDevelopment2">IN DEVELOPMENT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
