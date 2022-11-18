@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password=binding.password2.getText().toString().trim();
 
                 if (email.isEmpty() == true || password.isEmpty() == true ) {
-                    Toast.makeText(LoginActivity.this, "Please enter your credentials completely", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.login_EmptyCredentials, Toast.LENGTH_SHORT).show();
 
                 }
                 else {
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     progressDialog.cancel();
-                                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, R.string.login_Successful, Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     LoginActivity.this.finish();
                                 }
@@ -77,14 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email=binding.emailAddress.getText().toString();
-                progressDialog.setTitle("Sending Mail");
+                progressDialog.setTitle(getString(R.string.resetPassword_OnClick));
                 progressDialog.show();
                 firebaseAuth.sendPasswordResetEmail(email)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, R.string.resetPassword_Successful, Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

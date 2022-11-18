@@ -1,5 +1,6 @@
 package com.example.notehub.controllers;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -58,9 +59,8 @@ public class HomeController{
 
     }
 
-    public void getFavouriteNotes(List file, GridLayoutManager layoutManager){
+    public void getFavouriteNotes(Context context, List file, GridLayoutManager layoutManager){
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
-        Log.d("IS COMPLETE", "IS COMPLETE");
         dataBase.collection("notes")
                 .whereIn("file_id", file)
                 .get()
@@ -70,10 +70,11 @@ public class HomeController{
 
                         if (task.isSuccessful()) {
                             QuerySnapshot doc = task.getResult();
-                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter((ArrayList) doc.getDocuments());
+                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(context, (ArrayList) doc.getDocuments());
 
                             mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
                             mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
+                            mFavouritesRecyclerAdapter.notifyDataSetChanged();
 
                         } else {
                             Log.d("Error: ", String.valueOf(task.getException()));
@@ -82,4 +83,13 @@ public class HomeController{
                 });
 
     }
+
+    public void refreshOnDataChange(Context context, GridLayoutManager layoutManager){
+        mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(context, new ArrayList());
+
+        mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
+        mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
+        mFavouritesRecyclerAdapter.notifyDataSetChanged();
+    }
+
 }

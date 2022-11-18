@@ -1,6 +1,7 @@
 package com.example.notehub.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notehub.FileViewerActivity;
 import com.example.notehub.R;
 import com.example.notehub.model.Notes;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -21,8 +23,10 @@ import java.util.Map;
 
 public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRecyclerAdapter.FavouritesHolder> {
     private ArrayList<QueryDocumentSnapshot> mNotesList;
+    private Context mContext;
 
-    public FavouritesRecyclerAdapter(ArrayList notesList) {
+    public FavouritesRecyclerAdapter(Context context, ArrayList notesList) {
+        mContext = context;
         this.mNotesList = notesList;
     }
 
@@ -42,17 +46,20 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
 
         holder.mFileTitle.setText(notes.getTitle());
         holder.mFileDescription.setText(notes.getDescription());
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent i = new Intent(mContext, FileViewerActivity.class);
+            i.putExtra("url_key",notes.getUrl());
+            i.putExtra("title_key",notes.getTitle());
+            i.putExtra("file_id", notes.getFile_id());
+            i.putExtra("is_fav", true);
+            mContext.startActivity(i);
+        });
     }
 
     @Override
     public int getItemCount() {
-        if (mNotesList.size() < 3){
-            return mNotesList.size();
-        }
-        else{
-            return 3;
-        }
-
+        return mNotesList.size();
     }
 
     public class FavouritesHolder extends RecyclerView.ViewHolder {

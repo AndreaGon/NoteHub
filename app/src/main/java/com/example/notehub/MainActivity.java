@@ -1,5 +1,7 @@
 package com.example.notehub;
 
+import static com.example.notehub.R.string.InDevelopment2;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,28 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.profile:
                     //ADD CODE HERE AND REMOVE THE TOAST CODE
-                    Toast.makeText(getApplicationContext(), "IN DEVELOPMENT", Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(), InDevelopment2, Toast.LENGTH_SHORT)
                             .show();
                     break;
             }
             return true;
         });
 
-
-        /* COMMENT FOR NOW BECAUSE sample VARIABLE GOT ERROR
-        binding.sample.setOnClickListener(new View.OnClickListener() {
-        ProgressBar progressBar = binding.progressBar;
-
-        layoutManager=new GridLayoutManager(this,1);
-
-        getCurrentUser(new HomeAbstracts(){
-            @Override
-            public void userData(Map user){
-                getFavouriteNotes((ArrayList) user.get("favouriteNotes"));
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-        COMMENT FOR NOW BECAUSE sample VARIABLE GOT ERROR */
     }
 
     private void replaceFragment(Fragment fragment){

@@ -14,9 +14,10 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:background="@color/dark_blue"
-            android:minHeight="?attr/actionBarSize">
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ToolbarTheme">
 
 
             <TextView
@@ -24,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:text="File Viewer"
+                android:textSize="20dp" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -35,6 +37,8 @@
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarWrapper"/>
+
 
 </RelativeLayout>
