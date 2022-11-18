@@ -1,8 +1,7 @@
 package com.example.notehub.fragment;
 
-import static com.example.notehub.R.string.Indevelopment;
-
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +23,7 @@ import com.example.notehub.adapters.ExploreRecyclerAdapter;
 import com.example.notehub.controllers.ExploreController;
 import com.example.notehub.databinding.FragmentExploreBinding;
 import com.example.notehub.model.Notes;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -71,16 +63,6 @@ public class ExploreFragment extends Fragment { // CONTROLLER
         mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage(getString(R.string.FetchingData));
         mProgressDialog.show();
-
-        //VIEW AVAILABLE CATEGORIES BUTTON START
-        explore_fragment_binding.exploreBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), Indevelopment, Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-        //VIEW AVAILABLE CATEGORIES BUTTON END
 
         mExploreController = new ExploreController(explore_fragment_binding);
 
@@ -133,7 +115,6 @@ public class ExploreFragment extends Fragment { // CONTROLLER
                     else{
 
                     }
-                    Log.d("SIZE", "" + filtered_list.size());
                 }
                 mExploreRecyclerAdapter = new ExploreRecyclerAdapter(getActivity(), mNotesArrayList2);
                 explore_fragment_binding.recyclerView1.setHasFixedSize(true);
