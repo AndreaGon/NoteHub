@@ -2,9 +2,11 @@ package com.example.notehub;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -44,8 +46,11 @@ public class FileViewerActivity extends AppCompatActivity {
 
         pdfView = findViewById(R.id.pdfView);
 
+
+
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
+
 
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -90,6 +95,25 @@ public class FileViewerActivity extends AppCompatActivity {
                 mFileViewerController.removeFromFavourites(currentFileId);
 
                 return true;
+            case R.id.showFileInfo:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Title: " + getIntent().getStringExtra("title_key")
+                        + "\nDescription: " + getIntent().getStringExtra("description")
+                        + "\nUploaded by: " + getIntent().getStringExtra("username"));
+                builder.setCancelable(true);
+
+                builder.setPositiveButton(
+                        "Close",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+
             default:
                 return super.onOptionsItemSelected(item);
         }
