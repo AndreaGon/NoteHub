@@ -6,12 +6,26 @@ public class Notes { // MODEL
     private String title;
     private String uploadedBy;
     private String userName;
+    private int year;
     //====================================================
     private int file_id; //the name same as in Firestore
     private String url;
     //====================================================
 
     public Notes(){} //DEFAULT CONSTRUCTOR
+
+    public Notes(String description,int file_id, String tags, String title,
+                 String uploadedBy, String url,  String userName, int year){
+        this.description = description;
+        this.file_id = file_id;
+        this.tags = tags;
+        this.title = title;
+        this.uploadedBy = uploadedBy;
+        this.url = url;
+        this.userName = userName;
+        this.year = year;
+
+    } //DEFAULT CONSTRUCTOR
 
     public String getDescription() {
         return description;
@@ -51,6 +65,14 @@ public class Notes { // MODEL
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     //=======================================================================================

@@ -17,7 +17,7 @@
         android:gravity="center"
         android:textSize="20sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/uploadFileID"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.notehub;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.ActivityResultRegistryOwner;
@@ -12,9 +13,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.notehub.databinding.UploadPageBinding;
+import com.example.notehub.model.Notes;
 import com.example.notehub.model.UploadData;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,8 +35,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,24 +46,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class UploadActivity extends AppCompatActivity {
     private UploadPageBinding binding;
 
     Uri pdfURI;
-    ActivityResultLauncher<String> mTakeFile;
+    ActivityResultLauncher<Intent> mTakeFile;
+    //Task<Uri> storageUrl;
     ProgressDialog progressDialog;
 
+    //private FirebaseDatabase database;
     private FirebaseFirestore db; //store the urls of the files
     private FirebaseStorage storage; //store the files itself
 
+    private int file_id;
+    private String upTitleStr, upDescStr, spinnerStr, testUri, generatedFilePath;
+    private String storageUrl;
     private EditText upTitleEdt, upDescEdt;
-    private String upTitleStr, upDescStr, spinnerStr, fileId;
-    private Button filebtn, uploadbtn;
+    private TextView fileName;
+    //private Button filebtn, uploadbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,30 +86,49 @@ public class UploadActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_type.setAdapter(adapter);
         //String of users selection
-        spinnerStr = spinner_type.getSelectedItem().toString();
 
         //Select File button
-        filebtn = binding.UploadFile;
-        mTakeFile = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
+        //filebtn = binding.UploadFile;
+        mTakeFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onActivityResult(Uri result) {
-                        fileId = result.toString();
-                        binding.uploadFileID.setText(fileId);
+                    public void onActivityResult(ActivityResult result) {
+
+                        Intent data = result.getData();
+                        if (data != null) {
+                            // When data is not equal to empty
+                            // Get PDf uri from android storage
+                            pdfURI = data.getData();
+                            testUri = pdfURI.toString();
+
+                            //fileName = binding.uploadFileID ;
+
+                            binding.uploadFileID.setText(testUri);
+
+                            /*// Get PDF path
+                            String sPath = sUri.getPath(); */
+                        }
                     }
                 }
         );
 
-        filebtn.setOnClickListener(new View.OnClickListener() {
+        //Select File button
+        //filebtn = binding.UploadFile;
+        binding.UploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(UploadActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                {
-                    mTakeFile.launch("application/*");
+                // check condition
+                if (ActivityCompat.checkSelfPermission(UploadActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // When permission is not granted
+                    // Result permission
+                    ActivityCompat.requestPermissions(UploadActivity.this,
+                            new String[] {Manifest.permission.READ_EXTERNAL_STORAGE },1);
                 }
-                else{
-                    //set a specific request code or else any request can enteer
-                    ActivityCompat.requestPermissions(UploadActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9 );
+                else {
+                    // When permission is granted
+                    // Create method
+                    selectPDF();
                 }
             }
         });
@@ -106,30 +140,57 @@ public class UploadActivity extends AppCompatActivity {
         upTitleEdt = binding.uploadTitle;
         upDescEdt = binding.uploadDesc;
 
+        Random rand = new Random();
+        file_id = rand.nextInt(999);
+
         //upload btn feature
-        uploadbtn.setOnClickListener(new View.OnClickListener() {
+        //uploadbtn.setOnClickListener(new View.OnClickListener() {
+        binding.btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 upTitleStr = upTitleEdt.getText().toString();
                 upDescStr = upDescEdt.getText().toString();
+                spinnerStr = spinner_type.getSelectedItem().toString();
 
                 if (TextUtils.isEmpty(upTitleStr)) {
                     upTitleEdt.setError("Please enter Title");
                 } else if (TextUtils.isEmpty(upDescStr)) {
                     upDescEdt.setError("Please enter Description");
-                }else if(TextUtils.isEmpty(spinnerStr)){
-                    Toast.makeText(UploadActivity.this, "Please Select a Note Type", Toast.LENGTH_SHORT);
                 }else {
                     //add file to storage
-                    //uploadFile(mTakeFile);
-                    // calling method to add data to Firebase Firestore.
-                    //add username into function once integrated
-                    //addDataToFirestore(fileId, upTitleStr, upDescStr, spinnerStr);
+                    uploadFile(pdfURI);
+                    addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, "33",
+                            storageUrl, "Hari", 2023);
+                    //(Description, file_id, dropdown value, Title, uploadedBy,
+                    // url, userName, year);
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i1 = new Intent(UploadActivity.this, MainActivity.class);
+                            startActivity(i1);
+                        }
+                    }, 5000);
+                    /*Intent i1 = new Intent(UploadActivity.this, MainActivity.class);
+                    startActivity(i1);*/
+                    Log.d("UploadActivity",storageUrl+" in publish btn");
 
 
                 }
             }
         });
+    }
+
+    private void selectPDF()
+    {
+        // Initialize intent
+        Intent intent= new Intent(Intent.ACTION_GET_CONTENT);
+        // set type
+        intent.setType("application/*");
+        // Launch intent
+        mTakeFile.launch(intent);
     }
 
     private void uploadFile(Uri mTakeFile){
@@ -141,19 +202,45 @@ public class UploadActivity extends AppCompatActivity {
 
         String fileName = System.currentTimeMillis()+"";
         StorageReference storageReference = storage.getReference();
-        storageReference.child("Upload").child(fileName).putFile(mTakeFile)
+
+        //remove .child if you dont want a file for the pdfs //.child("notes")
+        storageReference.child("notes").child(fileName).putFile(pdfURI)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //returns url of uploaded file
-                        String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                        //upload image and data
-                        addDataToFirestore(url, upTitleStr, upDescStr,spinnerStr);
+                        //taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                        //taskSnapshot.getStorage().getDownloadUrl();
+                        //taskSnapshot.getUploadSessionUri().toString();
+                        storageUrl = taskSnapshot.getUploadSessionUri().toString();
+                        generatedFilePath = storageUrl.toString();
+                        Log.d("UploadActivity",storageUrl+" in upload file");
+
+                        /*db.collection("Test").add(generatedFilePath).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                                Log.d("UploadActivity",generatedFilePath+" in Upload Method");
+
+                            }
+                        });*/
+                        //Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl()
+                       /* storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // getting image uri and converting into string
+                                Uri downloadUrl = uri;
+                                urlStringLink = downloadUrl.toString();
+
+                            }
+                        });*/
+                        /*if (storageUrl.isSuccessful()) {
+                            System.out.println("## Stored path is " + generatedFilePath);
+                        }*/
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UploadActivity.this, "File Not Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadActivity.this, "File & Data Not Successfully Uploaded", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -164,7 +251,7 @@ public class UploadActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 9 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -172,23 +259,24 @@ public class UploadActivity extends AppCompatActivity {
         } else {
             Toast.makeText(UploadActivity.this, "Please provide permission", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
-    private void addDataToFirestore(String fileID ,String upTitleStr, String upDescStr, String spinnerStr ) {
+    private void addDataToFirestore(String upDescStr, int fileID, String spinnerStr,  String upTitleStr,
+                                    String uploadedBy, String url, String userName, int year) { // Uri url,
 
         // creating a collection reference
         // for our Firebase Firetore database.
-        CollectionReference dbuploads = db.collection("Uploads");
+
+        CollectionReference dbuploads = db.collection("Notes"); // change to "notes" later
 
         // adding our data to our courses object class.
-        UploadData upload = new UploadData(fileID, upTitleStr, upDescStr, spinnerStr);
+        Notes upload = new Notes(upDescStr, fileID, spinnerStr, upTitleStr, uploadedBy, url, userName, year);
 
         // below method is use to add data to Firebase Firestore.
         dbuploads.add(upload).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                // after the data addition is successful
-                // we are displaying a success toast message.
+                // after the data addition is successful, display a success toast message.
                 Toast.makeText(UploadActivity.this, "The file has been uploaded", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -201,6 +289,21 @@ public class UploadActivity extends AppCompatActivity {
         });
     }
 
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            selectPDF();
+        }
+        else{
+            // When permission is denied
+            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+
+}
     /*private void selectFile(){
         //to allow user to select file using filemanager
 
@@ -225,4 +328,4 @@ public class UploadActivity extends AppCompatActivity {
 
     }*/
 
-}
+
