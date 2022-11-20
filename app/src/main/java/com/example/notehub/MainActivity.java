@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.notehub.databinding.ActivityMainBinding;
 import com.example.notehub.fragment.ExploreFragment;
 import com.example.notehub.fragment.HomeFragment;
+import com.example.notehub.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.profile:
+                    replaceFragment(new ProfileFragment());
                     //ADD CODE HERE AND REMOVE THE TOAST CODE
-                    Toast.makeText(getApplicationContext(), InDevelopment2, Toast.LENGTH_SHORT)
-                            .show();
+                    //Toast.makeText(getApplicationContext(), InDevelopment2, Toast.LENGTH_SHORT).show();
                     break;
             }
             return true;

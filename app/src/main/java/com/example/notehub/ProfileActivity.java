@@ -16,9 +16,11 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.example.notehub.databinding.ProfilePageBinding;
+import com.example.notehub.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+/*
 public class ProfileActivity extends AppCompatActivity { //implements BottomNavigationView.OnItemSelectedListener
 
     private ProfilePageBinding binding;
@@ -41,14 +43,14 @@ public class ProfileActivity extends AppCompatActivity { //implements BottomNavi
         mDrawable.setColorFilter(ContextCompat.getColor(ProfileActivity.this, R.color.teal_200), PorterDuff.Mode.DST_OVER);
         profile_pic.setImageDrawable(mDrawable);
 
-        /*bottomNavigationView = binding.bottonnav;
+        bottomNavigationView = binding.bottonnav;
         bottomNavigationView.OnItemSelectedListener(this);
-        loadFragment(new DashbordFragment());*/
+        loadFragment(new DashbordFragment());
 
     }
 
     //Navigation
-   /* @Override
+   @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
         switch (item.getItemId()) {
@@ -70,5 +72,5 @@ public class ProfileActivity extends AppCompatActivity { //implements BottomNavi
     void loadFragment(Fragment fragment) {
         //to attach fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.rela, fragment).commit();
-    }*/
-}
+    }
+}*/
