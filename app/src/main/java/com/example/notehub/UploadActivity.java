@@ -19,8 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -160,8 +158,7 @@ public class UploadActivity extends AppCompatActivity {
                 }else {
                     //add file to storage
                     uploadFile(pdfURI);
-                    addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, "33",
-                            storageUrl, "Hari", 2023);
+
                     //(Description, file_id, dropdown value, Title, uploadedBy,
                     // url, userName, year);
 
@@ -213,6 +210,8 @@ public class UploadActivity extends AppCompatActivity {
                         //taskSnapshot.getUploadSessionUri().toString();
                         storageUrl = taskSnapshot.getUploadSessionUri().toString();
                         generatedFilePath = storageUrl.toString();
+                        addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, "33",
+                                storageUrl, "Hari", 2023);
                         Log.d("UploadActivity",storageUrl+" in upload file");
 
                         /*db.collection("Test").add(generatedFilePath).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
