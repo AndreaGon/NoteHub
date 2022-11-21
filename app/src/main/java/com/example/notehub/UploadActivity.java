@@ -19,10 +19,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -50,6 +53,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -67,7 +71,7 @@ public class UploadActivity extends AppCompatActivity {
 
     private int file_id;
     private String upTitleStr, upDescStr, spinnerStr, testUri, generatedFilePath;
-    private String storageUrl;
+    private String storageUrl, usrname, uniqueID;
     private EditText upTitleEdt, upDescEdt;
     private TextView fileName;
     //private Button filebtn, uploadbtn;
@@ -160,8 +164,7 @@ public class UploadActivity extends AppCompatActivity {
                 }else {
                     //add file to storage
                     uploadFile(pdfURI);
-                    addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, "33",
-                            storageUrl, "Hari", 2023);
+
                     //(Description, file_id, dropdown value, Title, uploadedBy,
                     // url, userName, year);
 
@@ -200,8 +203,34 @@ public class UploadActivity extends AppCompatActivity {
         progressDialog.setProgress(0);
         progressDialog.show();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currendid = user.getUid();
+        DocumentReference reference;
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        reference = firestore.collection("user").document(currendid);
+
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult().exists()){
+
+                    usrname = task.getResult().getString("username");
+                    uniqueID = task.getResult().getString("uniqueid");
+
+
+                }else{
+                    Toast.makeText(UploadActivity.this, "Failed to Get Data", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+
         String fileName = System.currentTimeMillis()+"";
         StorageReference storageReference = storage.getReference();
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
 
         //remove .child if you dont want a file for the pdfs //.child("notes")
         storageReference.child("notes").child(fileName).putFile(pdfURI)
@@ -213,6 +242,9 @@ public class UploadActivity extends AppCompatActivity {
                         //taskSnapshot.getUploadSessionUri().toString();
                         storageUrl = taskSnapshot.getUploadSessionUri().toString();
                         generatedFilePath = storageUrl.toString();
+                        //"33" is the user unique id
+                        addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, uniqueID,
+                                storageUrl, usrname, year);
                         Log.d("UploadActivity",storageUrl+" in upload file");
 
                         /*db.collection("Test").add(generatedFilePath).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -267,7 +299,7 @@ public class UploadActivity extends AppCompatActivity {
         // creating a collection reference
         // for our Firebase Firetore database.
 
-        CollectionReference dbuploads = db.collection("Notes"); // change to "notes" later
+        CollectionReference dbuploads = db.collection("notes"); // change to "notes" later
 
         // adding our data to our courses object class.
         Notes upload = new Notes(upDescStr, fileID, spinnerStr, upTitleStr, uploadedBy, url, userName, year);
