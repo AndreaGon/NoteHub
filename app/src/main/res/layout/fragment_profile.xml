@@ -23,14 +23,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ivProfile"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Victor Chieng Zee Xuan"
-        android:textSize="22sp"
+        android:textSize="35dp"
+        android:textColor="@color/black"
         android:textStyle="bold" />
+
     <TextView
-        android:id="@+id/ProfComment"
+        android:id="@+id/ProfCampus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ProfName"
@@ -38,9 +39,8 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:padding="5dp"
-        android:text="A student at INTI Campus"
-        android:textSize="15sp"
-        />
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
 
     <Button
