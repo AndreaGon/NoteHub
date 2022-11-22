@@ -51,6 +51,8 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
             Intent i = new Intent(mContext, FileViewerActivity.class);
             i.putExtra("url_key",notes.getUrl());
             i.putExtra("title_key",notes.getTitle());
+            i.putExtra("description",notes.getDescription());
+            i.putExtra("username",notes.getUserName());
             i.putExtra("file_id", notes.getFile_id());
             i.putExtra("is_fav", true);
             mContext.startActivity(i);

@@ -21,8 +21,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -202,6 +200,7 @@ public class UploadActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("Uploading File...");
         progressDialog.setProgress(0);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -238,38 +237,15 @@ public class UploadActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                        //taskSnapshot.getStorage().getDownloadUrl();
-                        //taskSnapshot.getUploadSessionUri().toString();
-                        storageUrl = taskSnapshot.getUploadSessionUri().toString();
-                        generatedFilePath = storageUrl.toString();
+                        Task downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
 
-                        //"33" is the user unique id
-                        addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, uniqueID,
-                                storageUrl, usrname, year);
-                        Log.d("UploadActivity",storageUrl+" in upload file");
+                        downloadUrl.addOnSuccessListener(result ->{
+                            Log.d("Uploading Success", result.toString());
+                            addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, uniqueID,
+                               result.toString(), usrname, year);
+                        });
 
-                        /*db.collection("Test").add(generatedFilePath).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                                Log.d("UploadActivity",generatedFilePath+" in Upload Method");
-
-                            }
-                        });*/
-                        //Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl()
-                       /* storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                // getting image uri and converting into string
-                                Uri downloadUrl = uri;
-                                urlStringLink = downloadUrl.toString();
-
-                            }
-                        });*/
-                        /*if (storageUrl.isSuccessful()) {
-                            System.out.println("## Stored path is " + generatedFilePath);
-                        }*/
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

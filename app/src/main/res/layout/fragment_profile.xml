@@ -8,14 +8,12 @@
 
     <ImageView
         android:id="@+id/ivProfile"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="208dp"
+        android:layout_height="207dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:padding="5dp"
-        app:srcCompat="@drawable/shrek"
-        />
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/profile_foreground" />
 
     <TextView
         android:id="@+id/ProfName"
@@ -49,7 +47,7 @@
         android:layout_height="80dp"
         android:layout_below="@id/ProfName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:backgroundTint="@color/green"
         android:gravity="center"
         android:text="Upload"
@@ -63,7 +61,7 @@
         android:layout_height="80dp"
         android:layout_below="@id/btnUpload"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/logout_red"
         android:drawableLeft="@drawable/logout"
         android:gravity="center"
