@@ -53,39 +53,15 @@
         android:singleLine="true"
         android:textColorHint="@android:color/black" />
 
-    <Button
-        android:id="@+id/exploreBtn1"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/exploreView1"
-        android:layout_centerHorizontal="true"
-        android:text="@string/exploreBtnText1"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:backgroundTint="#D9D9D9"/>
-
-    <Button
-        android:id="@+id/exploreBtnText1"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_below="@id/exploreBtn1"
-        android:text="@string/exploreText2"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#3A6EA5"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="30dp"
-        android:enabled="false"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/exploreBtnText1"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/exploreView1"
+        android:layout_marginTop="30dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp" />
 

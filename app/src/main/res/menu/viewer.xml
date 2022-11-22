@@ -9,4 +9,9 @@
         android:title="Remove From Favourites"
         android:id="@+id/removeFromFav"
         android:icon="@drawable/home_icon"/>
+
+    <item
+        android:title="Show File Information"
+        android:id="@+id/showFileInfo"
+        android:icon="@drawable/home_icon"/>
 </menu>

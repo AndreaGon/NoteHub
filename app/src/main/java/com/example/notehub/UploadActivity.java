@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -242,6 +243,7 @@ public class UploadActivity extends AppCompatActivity {
                         //taskSnapshot.getUploadSessionUri().toString();
                         storageUrl = taskSnapshot.getUploadSessionUri().toString();
                         generatedFilePath = storageUrl.toString();
+
                         //"33" is the user unique id
                         addDataToFirestore(upDescStr, file_id, spinnerStr, upTitleStr, uniqueID,
                                 storageUrl, usrname, year);

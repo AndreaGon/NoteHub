@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment { // CONTROLLER
     public void onResume() {
         super.onResume();
         mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setCancelable(true);
+        mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("Fetching Data...");
         mProgressDialog.show();
 
