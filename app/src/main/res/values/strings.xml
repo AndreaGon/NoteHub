@@ -23,6 +23,7 @@
     <string name="SignIn_FailureMsg">Please fill in the details completely</string>
     <string name="spinner_OnSelected">\"Selected: \"</string>
     <string name="login_EmptyCredentials">Please enter your credentials completely</string>
+    <string name="reset_EmptyEmail">Please enter your email first</string>
     <string name="login_Successful">Login Successful</string>
     <string name="resetPassword_OnClick">Sending Mail</string>
     <string name="resetPassword_Successful">Email Sent</string>

@@ -77,23 +77,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email=binding.emailAddress.getText().toString();
-                progressDialog.setTitle(getString(R.string.resetPassword_OnClick));
-                progressDialog.show();
-                firebaseAuth.sendPasswordResetEmail(email)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, R.string.resetPassword_Successful, Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                if (email.isEmpty() == true) {
+                    Toast.makeText(LoginActivity.this, R.string.reset_EmptyEmail, Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    progressDialog.setTitle(getString(R.string.resetPassword_OnClick));
+                    progressDialog.show();
+                    firebaseAuth.sendPasswordResetEmail(email)
+
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginActivity.this, R.string.resetPassword_Successful, Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+
+
 
             }
         });
