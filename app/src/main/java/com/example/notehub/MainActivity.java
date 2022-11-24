@@ -1,5 +1,7 @@
 package com.example.notehub;
 
+import static com.example.notehub.R.string.InDevelopment2;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import com.example.notehub.databinding.ActivityMainBinding;
 import com.example.notehub.fragment.ExploreFragment;
 import com.example.notehub.fragment.HomeFragment;
+import com.example.notehub.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -40,29 +42,14 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.profile:
+                    replaceFragment(new ProfileFragment());
                     //ADD CODE HERE AND REMOVE THE TOAST CODE
-                    Toast.makeText(getApplicationContext(), "IN DEVELOPMENT", Toast.LENGTH_SHORT)
-                            .show();
+                    //Toast.makeText(getApplicationContext(), InDevelopment2, Toast.LENGTH_SHORT).show();
                     break;
             }
             return true;
         });
 
-
-        /* COMMENT FOR NOW BECAUSE sample VARIABLE GOT ERROR
-        binding.sample.setOnClickListener(new View.OnClickListener() {
-        ProgressBar progressBar = binding.progressBar;
-
-        layoutManager=new GridLayoutManager(this,1);
-
-        getCurrentUser(new HomeAbstracts(){
-            @Override
-            public void userData(Map user){
-                getFavouriteNotes((ArrayList) user.get("favouriteNotes"));
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-        COMMENT FOR NOW BECAUSE sample VARIABLE GOT ERROR */
     }
 
     private void replaceFragment(Fragment fragment){

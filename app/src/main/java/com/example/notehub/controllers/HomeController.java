@@ -1,5 +1,6 @@
 package com.example.notehub.controllers;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,15 +33,20 @@ public class HomeController{
     }
 
     public void getCurrentUser(HomeAbstracts homeAbstracts){
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
 
+
+
         dataBase.collection("user")
-                .whereEqualTo("id", "2GyFRiETIjK0rDUUzGrQ")
+                .whereEqualTo("uniqueid", currentFirebaseUser.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                         if (task.isSuccessful()) {
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 homeAbstracts.userData(document.getData());
 
@@ -51,7 +59,7 @@ public class HomeController{
 
     }
 
-    public void getFavouriteNotes(List file, GridLayoutManager layoutManager){
+    public void getFavouriteNotes(Context context, List file, GridLayoutManager layoutManager){
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
         dataBase.collection("notes")
                 .whereIn("file_id", file)
@@ -59,12 +67,14 @@ public class HomeController{
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                         if (task.isSuccessful()) {
                             QuerySnapshot doc = task.getResult();
-                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter((ArrayList) doc.getDocuments());
+                            mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(context, (ArrayList) doc.getDocuments());
 
                             mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
                             mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
+                            mFavouritesRecyclerAdapter.notifyDataSetChanged();
 
                         } else {
                             Log.d("Error: ", String.valueOf(task.getException()));
@@ -74,28 +84,12 @@ public class HomeController{
 
     }
 
-    public void addNewUser(){
-        FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
-        ArrayList<String> favourites = new ArrayList<String>();
-        ArrayList<String> uploaded = new ArrayList<String>();
+    public void refreshOnDataChange(Context context, GridLayoutManager layoutManager){
+        mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(context, new ArrayList());
 
-        favourites.add("123");
-        uploaded.add("456");
-
-        User user = new User(0, "andreagon", "INTI", favourites, uploaded);
-
-        dataBase.collection("user")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Error", String.valueOf(e));
-                    }
-                });
+        mFragmentHomeBinding.mFavouritesList.setLayoutManager(layoutManager);
+        mFragmentHomeBinding.mFavouritesList.setAdapter(mFavouritesRecyclerAdapter);
+        mFavouritesRecyclerAdapter.notifyDataSetChanged();
     }
+
 }

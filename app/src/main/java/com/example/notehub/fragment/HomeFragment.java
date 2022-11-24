@@ -1,20 +1,29 @@
 package com.example.notehub.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.notehub.FileViewerActivity;
+import com.example.notehub.RegisterActivity;
+import com.example.notehub.UploadActivity;
 import com.example.notehub.abstracts.HomeAbstracts;
 import com.example.notehub.controllers.HomeController;
 import com.example.notehub.databinding.FragmentHomeBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -44,7 +53,20 @@ public class HomeFragment extends Fragment { // CONTROLLER
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FloatingActionButton fab = home_fragment_binding.uploadFile;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), UploadActivity.class);
+                startActivity(i);
+            }
+        });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("Fetching Data...");
@@ -57,7 +79,15 @@ public class HomeFragment extends Fragment { // CONTROLLER
         mHomeController.getCurrentUser(new HomeAbstracts(){
             @Override
             public void userData(Map user){
-                mHomeController.getFavouriteNotes((ArrayList) user.get("favouriteNotes"), layoutManager);
+                ArrayList listOfNotes = (ArrayList) user.get("favouriteNotes");
+                if(listOfNotes.isEmpty()){
+                    Toast.makeText(getActivity(), "No Favourite Notes!", Toast.LENGTH_SHORT).show();
+                    mHomeController.refreshOnDataChange(getActivity(), layoutManager);
+                }
+                else{
+                    mHomeController.getFavouriteNotes(getActivity(), (ArrayList) user.get("favouriteNotes"), layoutManager);
+                }
+
                 if (mProgressDialog.isShowing()){
                     mProgressDialog.dismiss();
                 }

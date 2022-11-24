@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="208dp"
+        android:layout_height="207dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/profile_foreground" />
+
+    <TextView
+        android:id="@+id/ProfName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="35dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ProfCampus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ProfName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+
+
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/ProfName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:backgroundTint="@color/green"
+        android:gravity="center"
+        android:text="Upload"
+        android:drawableLeft="@drawable/uploadicon"
+        android:textSize="25sp" />
+
+
+    <Button
+        android:id="@+id/btnLogOff"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/btnUpload"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/logout_red"
+        android:drawableLeft="@drawable/logout"
+        android:gravity="center"
+        android:text="Log Out"
+        android:textSize="25sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottonnav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        app:menu="@menu/navigation"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
