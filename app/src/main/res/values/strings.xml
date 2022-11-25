@@ -21,7 +21,7 @@
     <string name="Spinner_CampusUow">UOW Malaysia KDU Penang University College</string>
     <string name="Spinner_CampusMonash">Monash University Malaysia</string>
     <string name="SignIn_FailureMsg">Please fill in the details completely</string>
-    <string name="spinner_OnSelected">\"Selected: \"</string>
+    <string name="spinner_OnSelected">\Selected: \</string>
     <string name="login_EmptyCredentials">Please enter your credentials completely</string>
     <string name="reset_EmptyEmail">Please enter your email first</string>
     <string name="login_Successful">Login Successful</string>

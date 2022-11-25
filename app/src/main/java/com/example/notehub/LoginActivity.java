@@ -106,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+
         binding.register.setOnClickListener(new View.OnClickListener(){
 
             @Override
